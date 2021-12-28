@@ -24,6 +24,7 @@ export default class NotificationService {
     ['iGot', this.iGot],
     ['pushPlus', this.pushPlus],
     ['email', this.email],
+    ['ysm', this.ysm],
   ]);
 
   private timeout = 10000;
@@ -323,6 +324,27 @@ export default class NotificationService {
           title: `${this.title}`,
           content: `${this.content.replace(/[\n\r]/g, '<br>')}`,
           topic: `${pushPlusUser || ''}`,
+        },
+      })
+      .json();
+
+    return res.code === 200;
+  }
+
+  private async ysm() {
+    const { agentId } = this.params;
+    const url = `https://ysm.ycicic.cn/dd/cp/message/${agentId}/send`;
+    const res: any = await got
+      .post(url, {
+        timeout: this.timeout,
+        retry: 0,
+        json: {
+          title: `${this.title}`,
+          text: `### ${this.title}\n\n---\n\n${this.content.replace(
+            /[\n\r]/g,
+            '<br>',
+          )}`,
+          parse_mode: `HTML`,
         },
       })
       .json();

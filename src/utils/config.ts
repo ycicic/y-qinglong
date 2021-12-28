@@ -83,9 +83,11 @@ export default {
     { value: 'iGot', label: 'IGot' },
     { value: 'pushPlus', label: 'PushPlus' },
     { value: 'email', label: '邮箱' },
+    { value: 'ysm', label: 'YSM' },
     { value: 'closed', label: '已关闭' },
   ],
   notificationModeMap: {
+    ysm: [{ label: 'agentId', tip: 'YSM配置的agentId', required: true }],
     gotify: [
       {
         label: 'gotifyUrl',

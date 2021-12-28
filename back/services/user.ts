@@ -363,8 +363,8 @@ export default class UserService {
     const code = Math.random().toString().slice(-6);
     const isSuccess = await this.notificationService.testNotify(
       notificationInfo,
-      '青龙',
-      `【蛟龙】测试通知 https://t.me/jiao_long`,
+      '测试通知',
+      `【YSM】测试通知`,
     );
     if (isSuccess) {
       const result = await this.updateAuthDb({

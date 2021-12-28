@@ -75,6 +75,10 @@ export class EmailNotification extends NotificationBaseInfo {
   public emailPass: string = '';
 }
 
+export class YsmNotification extends NotificationBaseInfo {
+  public agentId: string = '';
+}
+
 export interface NotificationInfo
   extends GoCqHttpBotNotification,
     GotifyNotification,
@@ -86,4 +90,5 @@ export interface NotificationInfo
     WeWorkAppNotification,
     IGotNotification,
     PushPlusNotification,
+    YsmNotification,
     EmailNotification {}

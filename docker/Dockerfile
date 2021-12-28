@@ -1,7 +1,7 @@
 FROM node:lts-alpine3.12
-ARG QL_MAINTAINER="whyour"
+ARG QL_MAINTAINER="ycicic"
 LABEL maintainer="${QL_MAINTAINER}"
-ARG QL_URL=https://github.com/${QL_MAINTAINER}/qinglong.git
+ARG QL_URL=https://github.com/${QL_MAINTAINER}/y-qinglong.git
 ARG QL_BRANCH=master
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANG=zh_CN.UTF-8 \
@@ -33,8 +33,8 @@ RUN set -x \
     && echo "Asia/Shanghai" > /etc/timezone \
     && touch ~/.bashrc \
     && git clone -b ${QL_BRANCH} ${QL_URL} ${QL_DIR} \
-    && git config --global user.email "qinglong@@users.noreply.github.com" \
-    && git config --global user.name "qinglong" \
+    && git config --global user.email "ycicic@@users.noreply.github.com" \
+    && git config --global user.name "ycicic" \
     && cd ${QL_DIR} \
     && cp -f .env.example .env \
     && chmod 777 ${QL_DIR}/shell/*.sh \

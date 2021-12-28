@@ -204,12 +204,6 @@ const Initialization = () => {
         <div className={styles.top} style={{ marginTop: 80 }}>
           <div className={styles.header}>
             <span className={styles.title}>恭喜安装完成！</span>
-            <Link href="https://github.com/whyour/qinglong" target="_blank">
-              Github
-            </Link>
-            <Link href="https://t.me/jiao_long" target="_blank">
-              Telegram频道
-            </Link>
           </div>
           <div style={{ marginTop: 16 }}>
             <Button
