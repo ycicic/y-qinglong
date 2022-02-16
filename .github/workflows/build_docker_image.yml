@@ -76,7 +76,7 @@ jobs:
         with:
           registry: ${{ env.GHCR_REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.MAVEN_TOKEN }}
+          password: ${{ secrets.API_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
