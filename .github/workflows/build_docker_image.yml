@@ -5,16 +5,16 @@ on:
     branches:
       - 'master'
       - 'develop'
-    # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-  schedule:
-    # 参考 https://jasonet.co/posts/scheduled-actions/
-    # note: 这里是GMT时间，北京时间减去八小时即可。如北京时间 22:30 => GMT 14:30
-    # minute hour day month dayOfWeek
-    - cron: '00 14 * * *' # GMT 14:00 => 北京时间 22:00
-    #- cron: '30 16 * * *' # GMT 16:30（前一天） => 北京时间 00:30
+      - 'v*'
+#  schedule:
+#    - cron: '00 14 * * *' # GMT 14:00 => 北京时间 22:00
   workflow_dispatch:
+
+env:
+  REGISTRY: registry.cn-hangzhou.aliyuncs.com
+  GHCR_REGISTRY: ghcr.io
+
 
 jobs:
   build-static:
@@ -64,28 +64,27 @@ jobs:
           timezoneMacos: "Asia/Shanghai"
           timezoneWindows: "China Standard Time"
 
-      - name: Login to DockerHub
+      - name: Login to Ali
         uses: docker/login-action@v1
         with:
+          registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Login to GHCR
-        uses: docker/login-action@v1
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.GHCR_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.MAVEN_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ github.repository }}
-            ghcr.io/${{ github.repository }}
-          # generate Docker tags based on the following events/attributes
-          #   nightly, master, pr-2, 1.2.3, 1.2, 1
+            ${{ env.REGISTRY }}/${{ github.repository }}
+            ${{ env.GHCR_REGISTRY }}/${{ github.repository }}
           tags: |
             type=schedule,pattern=nightly
             type=edge
